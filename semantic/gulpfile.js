@@ -16,6 +16,8 @@ var
   buildJS      = require('./tasks/build/javascript'),
   buildCSS     = require('./tasks/build/css'),
   buildAssets  = require('./tasks/build/assets'),
+  sass = require('gulp-sass'),
+  pug = require('gulp-pug'),
 
   // utility
   clean        = require('./tasks/clean'),
@@ -45,6 +47,19 @@ gulp.task('build', 'Builds all files from source', build);
 gulp.task('build-javascript', 'Builds all javascript from source', buildJS);
 gulp.task('build-css', 'Builds all css from source', buildCSS);
 gulp.task('build-assets', 'Copies all assets from source', buildAssets);
+gulp.task('views', function() {
+  return gulp.src('../views/*.pug')
+    .pipe(pug({}))
+    .pipe(gulp.dest('../'))
+  ;
+});
+gulp.task('sass', function() {
+  return gulp.src('../sass/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('../css'))
+  ;
+});
+
 
 gulp.task('clean', 'Clean dist folder', clean);
 gulp.task('version', 'Displays current version of Semantic', version);

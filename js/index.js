@@ -1,51 +1,33 @@
 $(document).ready(function() {
+  keg.initialize('coderedDemo');
   // Set up already-existing todos in localstorage
   function update_todos() {
-    var todos = JSON.parse(localStorage.getItem('todos'));
-    $('.todos').empty();
-    $.each(todos, function(todo) {
-      if (todos[todo] !== null) {
-        $('.todos').append('<div class="item" id_attr="' + todos[todo].id + '"><div class="content"><div class="header">' + todos[todo].title + '</div></div></div>');
-      }
-    });
-    $('.todos > .item').unbind('click').click(function() {
-      delete_todo(parseInt($(this).attr('id_attr')));
-      $(this).remove();
+    var todos = keg.read(null, function(err, resp) {
+      var todos = resp;
+      $('.todos').empty();
+      $.each(todos, function(todo) {
+        if (todos[todo] !== null) {
+          $('.todos').append('<div class="item" id_attr="' + todos[todo].id + '"><div class="content"><div class="header">' + todos[todo].title + '</div></div></div>');
+        }
+      });
+      $('.todos > .item').unbind('click').click(function() {
+        delete_todo(parseInt($(this).attr('id_attr')));
+        $(this).remove();
+      });
     });
   }
 
   function new_todo(title) {
-    if (localStorage.getItem('todos') !== null) {
-      var todos_list = JSON.parse(localStorage.getItem('todos'));
-      var id = todos_list.length + 1;
-    } else {
-      var todos_list = [];
-      var id = 1;
-    }
-    todos_list.push({
-      'id': id,
-      'title': title
+    keg.create({ title: title }, function(err, resp) {
+      update_todos();
     });
-    localStorage.setItem('todos', JSON.stringify(todos_list));
-    update_todos();
   }
 
   function delete_todo(id) {
-    if (localStorage.getItem('todos') !== null) {
-      var todos_list = JSON.parse(localStorage.getItem('todos'));
-      console.log(todos_list);
-      if (id > 0 && id <= todos_list.length) {
-        delete todos_list[id - 1];
-        console.log(todos_list[id - 1]);
-        localStorage.setItem('todos', JSON.stringify(todos_list));
-      } else {
-        return false;
-      }
+    keg.delete(id, function(err, res) {
+      console.log(err, res);
       update_todos();
-      return true;
-    } else {
-      return false;
-    }
+    });
   }
 
   update_todos();

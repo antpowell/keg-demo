@@ -1,0 +1,20 @@
+.ui.container {
+  max-width: 600px !important;
+  text-align: center; }
+  .ui.container h1.ui.header {
+    margin-top: 1rem;
+    color: #D0303D; }
+  .ui.container i {
+    color: #5E412F; }
+  .ui.container .ui.grid {
+    margin-top: 1rem; }
+  .ui.container .ui.input {
+    width: 100%; }
+  .ui.container .button {
+    height: 100%; }
+  .ui.container .item {
+    text-align: left;
+    color: #000; }
+    .ui.container .item:hover .content .header {
+      color: #D0303D !important;
+      font-size: 1.5rem; }

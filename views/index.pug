@@ -1,7 +1,7 @@
 doctype html
 html(lang="en")
   head
-    title Keg - Full Stack Rails Demo
+    title Keg - Full Stack Demo
 
     link(rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css")
     script(type="text/javascript" src="semantic/dist/jquery-3.1.1.min.js")
@@ -12,6 +12,12 @@ html(lang="en")
   body
     .ui.container
       h1.ui.centered.header Todos List
-      ul.todos
-      input.new.todo(type="text" placeholder="Create a new todo")
-      input(type="submit" value="Submit")
+      i (Click on items to mark as completed and archive them)
+      .ui.equal.height.grid
+        .row
+          .fourteen.wide.column
+            .ui.input
+              input.new.todo(type="text" placeholder="Create a new todo")
+          .two.wide.column
+            input.ui.basic.button(type="submit" value="Submit")
+      .todos.ui.middle.aligned.selection.list

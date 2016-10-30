@@ -5,10 +5,10 @@ $(document).ready(function() {
     $('.todos').empty();
     $.each(todos, function(todo) {
       if (todos[todo] !== null) {
-        $('.todos').append('<li id_attr="' + todos[todo].id + '">' + todos[todo].title + '</li>');
+        $('.todos').append('<div class="item" id_attr="' + todos[todo].id + '"><div class="content"><div class="header">' + todos[todo].title + '</div></div></div>');
       }
     });
-    $('ul > li').unbind('click').click(function() {
+    $('.todos > .item').unbind('click').click(function() {
       delete_todo(parseInt($(this).attr('id_attr')));
       $(this).remove();
     });
